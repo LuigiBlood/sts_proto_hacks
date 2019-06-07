@@ -117,9 +117,148 @@ seek($82B248)
 seek($82B357)
     bit.w #$0030
 
+// Direction change 45° Anchor
+// $7EC885 - Direction (0 = 90°, south east for some reason)
+
+// Right
+seek($82B5D3)
+    lda.w #$0003
+    jmp turn_right45_check
+
+seek($82B5DC)
+    lda.w #$0001
+    jmp turn_right45_check
+
+// Left
+seek($82B618)
+    lda.w #$0003
+    jmp turn_left45_check
+
+seek($82B621)
+    lda.w #$0001
+    jmp turn_left45_check
+
+seek($82C4E0)
+turn_directions:
+    dw $0000, $002D, $005A, $0087, $00B4, $00E1, $010E, $013B, $0000
+turn_right45_check:
+    phx
+    pha
+    //Check if R button is held
+    lda $005D
+    and #$0010
+    beq turn_right45_normal
+    
+    //Compare to a set of directions (X) < A
+    ldx.w #$0010
+    lda $C885
+turn_right45_loop:
+    dex
+    dex
+    bmi turn_right45_last
+    beq turn_right45_last
+    cmp turn_directions,x
+    bcc turn_right45_loop
+    bra turn_right45_equal
+turn_right45_last:
+    ldx.w #$000E
+    bra turn_right45_load
+turn_right45_equal:
+    dex
+    dex
+turn_right45_load:
+    lda $0061
+    and.w #$0100
+    beq turn_right45_return
+    lda turn_directions,x
+    sta $C885
+turn_right45_return:
+    pla
+    plx
+    jmp $B5EC
+
+turn_right45_normal:
+    pla
+    plx
+    cmp.w #3
+    bcc turn_right45_normal1
+turn_right45_normal3:
+    lda $C885
+    sec
+    sbc.w #$0003
+    jmp $B5E3
+turn_right45_normal1:
+    inc $C8AF
+    lda $C885
+    dec
+    jmp $B5E3
+
+
+turn_left45_check:
+    phx
+    pha
+    //Check if R button is held
+    lda $005D
+    and #$0010
+    beq turn_left45_normal
+    
+    //Compare to a set of directions (X) > A
+    ldx.w #$FFFE
+    lda $C885
+turn_left45_loop:
+    inx
+    inx
+    cpx #$0010
+    bcs turn_left45_last
+    cmp turn_directions,x
+    bcs turn_left45_loop
+    bra turn_left45_load
+turn_left45_last:
+    ldx.w #$0000
+    bra turn_left45_load
+turn_left45_equal:
+    inx
+    inx
+turn_left45_load:
+    lda $0061
+    and.w #$0200
+    beq turn_left45_return
+    lda turn_directions,x
+    sta $C885
+turn_left45_return:
+    pla
+    plx
+    jmp $B633
+
+turn_left45_normal:
+    pla
+    plx
+    cmp.w #3
+    bcc turn_left45_normal1
+turn_left45_normal3:
+    lda $C885
+    clc
+    adc.w #$0003
+    jmp $B628
+turn_left45_normal1:
+    inc $C8AF
+    lda $C885
+    inc
+    jmp $B628
+
 // In Course Demo mode:
 //Skip camera demo with all buttons except arrows
 seek($818A19)
+    and.w #$F0F0
+
+//Skip ball counter animation
+seek($83A912)
+    and.w #$F0F0
+seek($83A835)
+    and.w #$F0F0
+
+//Skip shot counter animation
+seek($83E67C)
     and.w #$F0F0
 
 // In Choose Shot / "Pause" menu:
@@ -135,3 +274,14 @@ seek($83E9B6)
 // QoL - Skip to putt stuff
 seek($83E6D6)
     bra $83E6EE
+
+
+// Map / Result mode:
+seek($82BDE1)   // Go to Results with A / Start
+    and.w #$1080
+
+seek($82BDEE)   // Go back with B/X/Y/Select
+    and.w #$E040
+
+seek($84A8CA)   // Go back to gameplay from Results
+    lda.w #$F0C0
