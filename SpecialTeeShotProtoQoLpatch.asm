@@ -80,13 +80,18 @@ seek($81CA6F)
     dl $80F136
 
 
-// QoL - Don't edit a signature after the member was created (maybe add a button to let users do that)
+// QoL - Only edit a signature after the member was created if you hold Select
 seek($83FCB4)
-    nop
-    nop
-    nop
-    nop
+    jsl sig_edit_select
 
+seek($81FE00)
+sig_edit_select:
+    lda $005D
+    and.w #$2000
+    beq sig_edit_return
+    jsl $81F6D6
+sig_edit_return:
+    rtl
 
 // QoL - Change controls to be more like final
 // $7E0051 - Joypad 1 Hold
@@ -141,6 +146,7 @@ seek($82B621)
 seek($82C4E0)
 turn_directions:
     dw $0000, $002D, $005A, $0087, $00B4, $00E1, $010E, $013B, $0000
+
 turn_right45_check:
     phx
     pha
