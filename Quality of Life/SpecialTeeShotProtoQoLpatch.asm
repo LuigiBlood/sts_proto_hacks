@@ -60,7 +60,7 @@ seek($82B3C2)
     jmp $B3D7
 
 
-// QoL - Reverse Left/Right Putt for better clarity
+// QoL - Reverse Left/Right curve putt for better clarity
 // 7ec923? 83D043? 7ec919?
 // 7ec919 * 5 + CA6F
 seek($81CA6F)

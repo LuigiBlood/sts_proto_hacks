@@ -4,9 +4,9 @@
 
 This repository contains these hacks for the prototype version of Special Tee Shot:
 
-- Quality of Life patch (SpecialTeeShotProtoQoLpatch.asm)
+- Quality of Life patch
 
-This patch fixes the controls to be more like the final version, which is much easier to play.
+This patch fixes the controls to be more like the final version, which is much easier to play. See the readme for more information.
 
 ## Prerequisites
 
