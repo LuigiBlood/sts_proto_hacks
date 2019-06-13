@@ -1,0 +1,68 @@
+Info from Revenant and LuigiBlood
+
+ROM:
+$808000 : 00 = Record Input to 40:0000-FFFF, 01 = Play Input from 40:0000-FFFF
+$808001 : ??
+$808002 : Extra Ball Count
+$808003 : Extra Special Shot Count
+
+$80DBA7 : Main Loop
+
+$81F6D6 : Signature Loop
+
+$82BE1F : Map Preview Tilemap Load Routine
+
+$8286EE : Gameplay Music Load Routine
+$828716 : Music List (2 per class)
+
+$83FF24 : Menu Mode Loop
+
+$83FC3D : Menu Mode - File Select Loop
+
+$8480BD : Soundbank Load Routine
+
+$85C793: pointers into above table for each course
+
+$85C7A3: map numbers for each course
+
+
+$85CA73 : Map Chunk 1 - Geometry Pointers
+$85CB63 : Map Chunk 2 - Height Pointers
+$85CC53 : Map Chunk 3 - Tile Flags Pointers
+$85CD43 : Map Chunk 4 - Objects Pointers
+$85CE33 : Map Chunk 5 Pointers
+$85CF23 : Map Chunk 6 Pointers
+$85D013 : Map Chunk 7 Pointers
+$85D103 : Map Chunk 8 Pointers
+$85D1F3 : Map Chunk 9 Pointers
+$85D2E3 : Map Chunk 10 Pointers
+
+$85D3D3 : Map Name String Pointers
+$85D475 : Map Name Strings
+$85D691 : Map Par Number (8-bit Array)
+$85D6E1 : Map something (16-bit Array)
+$85D781 : Map Preview Tilemap Pointers (90 holes?)
+$85D8E9 : Map Preview BG Scroll Array (H / V)
+$85D989 : Map Preview BG Scroll Array? (H / V) (additional 80 holes?!)
+$85DB69 : Map Width (16-bit Array)
+$85DC09 : Map Length? (16-bit Array)
+
+
+RAM:
+$7E1E00 : Mode Select (0 = One Player Stroke, 1 = Two Player Stroke, 2 = Two Player Match)
+
+$7E9E07 : course number
+
+$7E9E0D : hole number
+
+$7E9E11 : last hole flag
+$7E9E1F : map number
+
+$7E9E21 : map number (x2)
+
+$7E9E73 : Bonus
+$7E9EFD : Bonus (Menu?)
+
+$7EC85B : Curve Path Flag
+
+$7EEAFC : Super Ball Flag?
