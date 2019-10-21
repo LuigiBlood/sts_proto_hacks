@@ -291,3 +291,21 @@ seek($82BDEE)   // Go back with B/X/Y/Select
 
 seek($84A8CA)   // Go back to gameplay from Results
     lda.w #$F0C0
+
+//Edit Demo Play
+// <Frames> <Input>
+seek($84B452)
+    dw $0020, $0020
+    dw $0039, $0220
+    dw $0003, $0020
+    dw $002F, $0420
+    dw $0002, $0020
+    dw $003D, $0420
+    dw $0005, $0020
+    dw $0012, $0420
+    dw $0006, $0020
+    dw $001C, $0820
+    dw $0004, $0020
+    dw $0026, $0000
+    dw $0066, $0080
+    dw $0014, $0000
